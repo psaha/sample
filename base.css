@@ -1,0 +1,103 @@
+body {
+    background: #FFFFE0;
+    background: lemon;
+    padding: .1em 4em 1em 4em;
+    color: black; 
+    max-height: 100%;
+    font-family: Georgia , "Times New Roman", serif;
+    font-size: 1em;
+    line-height: 150% ;
+}
+
+a { font-style: italic ; font-weight: normal; text-decoration: none ; }
+
+a:link    { color: blue; }
+a:visited { color: rgb(106,90,205); }
+a:hover   { color: blue;  text-decoration: underline }
+a:active  { color: blue; }
+
+h1, h2, h2 a, h3, h3 a, h4, h4 a, h5, h5 a { 
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-style: normal;
+}
+
+h1 { font-size: 2em ;  line-height: 150% ;
+     margin-top: 1em ; margin-bottom: 1em ; 
+     text-align: center;
+}
+
+h2 {
+    font-size: 1.5em ;
+    margin-top: 2em ; text-align: center;
+}
+
+h3 {
+    font-size: 1.2em ;
+    margin-top: 1em ;
+}
+
+h4 {
+    font-size: 1.1em ;
+     margin-top: 2em ; margin-bottom: 0em ; 
+     text-align: center;
+}
+
+h5 {
+    font-size: .8em ; font-weight: normal;
+}
+
+h6 {
+    font-size: .8em ; font-weight: normal;
+}
+
+.centered {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.right {
+   float: right
+}
+
+code {
+ font-size: 1.2em ;
+}
+
+pre {
+ font-size: 1.2em ;
+ line-height: 120% ;
+ white-space: pre-wrap;
+ white-space: -moz-pre-wrap;
+ white-space: -o-pre-wrap;
+ background: #faf8f0;
+ display: block;
+ padding: 0.5em 1em;
+ border: 1px solid #bebab0;
+}
+
+.prob {
+ display: block;
+ padding: 0.5em 1em;
+ border: 1px solid #bebab0;
+ background: #ffe0e0;
+ background: navajowhite;
+}
+
+.contents {
+ display: block;
+ padding: 0.5em 1em;
+ border: 1px solid #bebab0;
+ background: #faf8f0;
+}
+
+.box {
+ display: block;
+ padding: 0.5em 1em;
+ border: 1px solid #bebab0;
+ background: lemonchiffon;
+}
+
+p.centered {
+  text-align: center;
+}
+

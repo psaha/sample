@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="base.css" type="text/css"/>
+<title></title>
+</head>
+<body>
+<h5> <a href="index.html">Home</a> </h5>
+
+<h1> Sequence Alignment </h1>
+
+<p> The comparison of gene sequences (or protein sequences) in
+different species is a fundamental problem in bioinformatics.  We will
+consider the simplest form of sequence comparison: pairwise dot plots
+of matching sub-sequences.  To see how this works, let us consider the
+following strings: </p>
+
+<pre>
+x = "My care is loss of care, by old care done"
+y = "Your care is gain of care, by new care won"
+</pre>
+
+<p> and then plot a dot whenever a region of five characters matches
+between <code>x</code> and <code>y</code>.  We get the following. </p>
+
+<a href="dotplot.png"><img height="300" src="dotplot.png"
+                           alt="dot plot"/></a>
+
+<p> We can see how the five-character
+substring <code>"&nbsp;care"</code> produces a dot at
+(<i>x</i>=2,<i>y</i>=4), and then more dots as it appears again. </p>
+
+<p> Dot plots provide a convenient visual representation of the degree
+of mismatch between sequences.  They also help understand sequence
+alignment: an alignment is a path along a dot plot that optimizes some
+measure of matching. </p>
+
+<span class="prob">
+Write a program to produce a similar dot plot.
+</span>
+
+<h3>Fetching genomes</h3>
+
+<p> Input from the web is not limited to simple pages.  Here is an
+example to fetch a protein sequence from <a href=
+"http://www.uniprot.org">UniProt</a> and save it in a text file. </p>
+<pre>
+from Bio import ExPASy, SeqIO
+sid = raw_input('Sequence id? ')
+try:
+    handle = ExPASy.get_sprot_raw(sid)
+    seq = SeqIO.read(handle,'swiss')
+    SeqIO.write(seq, sid+'.genbank','genbank')
+    print 'Sequence length',len(seq)
+except Exception:
+    print 'Sequence not found'
+</pre>
+<p> By replacing <code>genbank</code> with <code>fasta</code> you can
+change the output to FASTA format.  The sequence data are exactly the
+same, of course, but the GenBank format has more meta-data about who
+sequenced the gene and so on. </p>
+
+<p> This example also illustrates Python's <code>try...except</code>
+construction, which is useful for handling errors. </p>
+
+<p class="prob">
+The sequence id <code>F8RBX8</code> stands for the protein sequence of
+an important gene in a well-known organism.  Fetch the data and save
+it as a GenBank file.  Open the file using a text editor and read off the
+gene name and organism.
+</p>
+
+</div>
+
+<p> The method is easily applied to gene and protein sequences, we
+just need to get a sequence into a string.  We already know how to
+write a GenBank file with sequence data.  Let <code>fname</code> be a
+string with the name of such a file, then try the following. </p>
+
+<pre>
+from Bio import SeqIO
+f = open(fname)
+p = SeqIO.parse(f,'genbank').next()
+f.close()
+print p.annotations['organism']
+print p.seq
+</pre>
+
+<p> The sequence is now in the string <code>seq</code> and ready to be
+analyzed. </p>
+
+<p> We can try and infer the relationship between languages from the lists
+of common words.  There are all sorts of statistical techniques one
+can use, but simple examination already gives some clues.  We can type
+our guessed relationship into a text file. </p>
+<pre>
+(((Romansh, Italian), French), (English, German))
+</pre>
+<p> called <code>langs.txt</code> (say).  This is the Newick format.
+Then </p>
+<pre>
+from Bio import Phylo
+tree = Phylo.read('langs.txt','newick')
+tree.rooted = True
+Phylo.draw(tree)
+</pre>
+<p> will draw a tree for us. </p>
+
+<span class="prob">
+<p>Choose a gene found in many species and make some dot plots comparing
+the corresponding amino-acid sequence in different pairs of species.
+Try and infer the phylogenetic relationships of a few species from the
+dot plots, express it in Newick, and hence produce a phylogenetic
+tree. </p>
+</span>
+
+<p> Multiple sequence alignment is a famously hard problem. The
+computer resources needed to guarantee finding the optimal alignment
+grow like </p>
+
+<p class="centered">
+[Sequence length]<sup>[number of sequences]</sup>
+</p>
+
+<p> Basically, it is the product of all the sequence lengths.  As the
+number of sequences increases, finding an optimal solution soon
+becomes infeasible.  (Checking a proposed optimal alignment can,
+however, be done more efficiently.)  Computational questions of such
+complexity are said to be <i>NP-complete.</i>  Practical algorithms
+aim to find a near-optimal solution, or to have a good (but not
+perfect) chance of finding the optimal solution. </p>
+
