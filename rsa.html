@@ -17,9 +17,18 @@ computers become available. </p>
 
 <h3> Modular arithmetic </h3>
 
+<p> The python function </p>
 <pre>
 pow(a,k,N)
 </pre>
+<p> is equivalent to </p>
+<pre>
+a**k % N
+</pre>
+but <i>much</i> faster, because it takes advantage of special
+properties of modular arithmetic.  The arguments
+to <code>pow(a,k,N)</code> can have hundreds of digits and the result
+comes back almost instantly. </p>
 
 <h3> An interesting finite group </h3>
 
@@ -28,7 +37,7 @@ def gcd(a,b):
     if b == 0:
         return a
     r = a % b
-    return gcd(b, r)
+    return gcd(b,r)
 </pre>
 
 <pre>
@@ -57,7 +66,7 @@ a*x + b*(u-q*x) == b*u + (a-b*q)*x == b*u + r*x
 ainv, = bezout(a,N)
 </pre>
 
-<h3> Some theorems </h3>
+<h3> Fermat's little theorem and friends </h3>
 
 <pre>
     G = coprimes(N)
