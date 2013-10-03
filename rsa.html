@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="base.css" type="text/css"/>
+<title></title>
+</head>
+<body>
+
+<h1>RSA Encryption</h1>
+
+<p> This project is to design and implement your own cryptographic
+system using RSA encryption.  Along the way, we will prove the elegant
+theorem that makes RSA work.  We will also why breaking RSA is
+difficult, but will no longer be difficult if some day quantum
+computers become available. </p>
+
+<h3> Modular arithmetic </h3>
+
+<pre>
+pow(a,k,N)
+</pre>
+
+<h3> An interesting finite group </h3>
+
+<pre>
+def gcd(a,b):
+    if b == 0:
+        return a
+    r = a % b
+    return gcd(b, r)
+</pre>
+
+<pre>
+def coprime(N):
+    lis = []
+    for a in range(1,N):
+        if gcd(a,N)==1:
+            lis.append(a)
+    return lis
+</pre>
+
+<pre>
+def bezout(a,b):
+    if b==0:
+        return (1,0)
+    q,r = a//b, a % b
+    u,x = bezout(b,r)
+    return (x,u−q∗x)
+</pre>
+
+<pre>
+a*x + b*(u-q*x) == b*u + (a-b*q)*x == b*u + r*x
+</pre>
+
+<pre>
+ainv, = bezout(a,N)
+</pre>
+
+<h3> Some theorems </h3>
+
+<pre>
+    G = coprimes(N)
+    k = len(G)
+    for a in G:
+        assert pow(a,k,N) == 1:
+</pre>
+
+<pre>
+N = p*q
+for a in range(N):
+    assert pow(a,(p-q)*(p-q)+1,N) == a
+</pre>
+
+<h3> Public-key encryption </h3>
+
+<pre>
+c =  randint(N-1)                # public key
+d, = bezout(c,(p-1)*(q-1))       # private key
+</pre>
+
+<pre>
+b = pow(a,c,N)                   # encrypt
+a = pow(b,d,N)                   # decrypt
+</pre>
+
+<h3> Quantum computers </h3>
+
+<p> If and when quantum computers become feasible, will be able find
+periods fast. </p>
+<pre>
+def period(b,N):
+    for r in range(N):
+        if pow(b,r,N) == 1:
+           return r
+</pre>
+<p> Then decryption becomes possible, as follows. </p>
+<pre>
+if pow(b,r,N) == 1:
+    dr, = bezout(c,r)            # pseudo private key
+    ar = pow(b,dr,N)             # pseudo decryption
+    assert ar == pow(a,c*dr,N)
+    assert pow(a,r,N) == 1
+    assert ar == a
+</pre>
+

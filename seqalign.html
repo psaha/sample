@@ -6,15 +6,18 @@
 <title></title>
 </head>
 <body>
-<h5> <a href="index.html">Home</a> </h5>
 
-<h1> Sequence Alignment </h1>
+<h1> Phylogenetic Trees </h1>
 
-<p> The comparison of gene sequences (or protein sequences) in
-different species is a fundamental problem in bioinformatics.  We will
-consider the simplest form of sequence comparison: pairwise dot plots
-of matching sub-sequences.  To see how this works, let us consider the
-following strings: </p>
+<p> This project is to construct an evolutionary tree of your chosen
+species, using data from one of the standard gene banks and a standard
+tool from bioinformatics. </p>
+
+<h3> Dot plots </h3>
+
+<p> We will consider the simplest form of sequence comparison:
+pairwise dot plots of matching sub-sequences.  To see how this works,
+let us consider the following strings. </p>
 
 <pre>
 x = "My care is loss of care, by old care done"
@@ -90,18 +93,20 @@ print p.seq
 <p> The sequence is now in the string <code>seq</code> and ready to be
 analyzed. </p>
 
-<p> We can try and infer the relationship between languages from the lists
-of common words.  There are all sorts of statistical techniques one
-can use, but simple examination already gives some clues.  We can type
-our guessed relationship into a text file. </p>
+<h3> Phylogenetic trees </h3>
+
+<p> We can try and infer the relationship between species from protein
+sequences.  There are all sorts of statistical techniques one can use,
+but simple examination already gives some clues.  We can type our
+guessed relationship into a text file. </p>
 <pre>
-(((Romansh, Italian), French), (English, German))
+(((Human, Neandertal), Chimpanzee), (Cat, Lion))
 </pre>
-<p> called <code>langs.txt</code> (say).  This is the Newick format.
+<p> called <code>tree.txt</code> (say).  This is the Newick format.
 Then </p>
 <pre>
 from Bio import Phylo
-tree = Phylo.read('langs.txt','newick')
+tree = Phylo.read('tree.txt','newick')
 tree.rooted = True
 Phylo.draw(tree)
 </pre>
@@ -114,6 +119,8 @@ Try and infer the phylogenetic relationships of a few species from the
 dot plots, express it in Newick, and hence produce a phylogenetic
 tree. </p>
 </span>
+
+<h3> NP-completeness </h3>
 
 <p> Multiple sequence alignment is a famously hard problem. The
 computer resources needed to guarantee finding the optimal alignment
